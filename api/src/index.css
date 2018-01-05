@@ -1,0 +1,48 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Signika', sans-serif;
+}
+label {
+  margin: 20;
+}
+.table {
+  display: table; /* Allow the centering to work */
+  margin: 0 auto;
+}
+#detailUrl {
+  margin-top: 50px;
+}
+ul#categories {
+  min-width: 696px;
+  list-style: none;
+  padding-top: 20px;
+}
+ul#categories li {
+  display: inline;
+  margin-left: 10px;
+}
+ul#address {
+  list-style: none;
+}
+.inputText {
+  margin: 10px;
+  font-size: 22px;
+  display: inline;
+}
+
+.email {
+  text-decoration: underline;
+  color: blue;
+}
+.pet_species {
+  float: left;
+  padding-left: 100;
+}
+.pet_name {
+  float: right;
+  margin: 0 0 10 0;
+}
+.StarList span:not(:last-child):after {
+  content: ', ';
+}

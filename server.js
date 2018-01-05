@@ -5,7 +5,6 @@ const CORS = require('cors');
 const assert = require('assert');
 const app = express();
 const path = require('path');
-const fetch = require('node-fetch');
 
 const statusCodes = require('./common/statusCodes.js');
 
@@ -20,6 +19,25 @@ yelpApiKey = "fdxCcAeDmHioEvb-wH9aWZEDQb6kwFwzrV5XIsbTL1JFqibhkGBwENt7JHVyEelzsA
 yelpClientId: "QHs73MIy7tCDkq7icNwBLQ"
 
 const client = yelp.client(yelpApiKey);
+
+
+app.get('/yelp/:_id',function(req, res) {
+  const { _id } = req.params;
+  //const search = `https://api.yelp.com/v3/businesses/search?${term}=${type}&latitude=${lat}&longitude=${long}`;
+  // console.log('search:', search);
+  const searchRequest = {
+    id: _id
+  };
+  client.search(searchRequest).then(response => {
+    res.json(response)
+    // res.json(response.jsonBody.businesses.filter(y => y.id == _id));
+    // const firstResult = response.jsonBody.businesses[0];
+    // const prettyJson = JSON.stringify(firstResult, null, 4);
+    // console.log(prettyJson);
+  }).catch(e => {
+    console.log(e);
+  });
+});
 
 app.get('/yelp',function(req, res) {
   const {term = 'delis', latitude=37.786882, longitude=-122.399972, radius=5000  } = req.query;

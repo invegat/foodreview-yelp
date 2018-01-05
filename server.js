@@ -8,9 +8,9 @@ const path = require('path');
 
 const statusCodes = require('./common/statusCodes.js');
 
- const url =     "https://api.yelp.com/v3/businesses/search?term=delis&latitude=37.786882&longitude=-122.399972"
+const url = "https://api.yelp.com/v3/businesses/search?term=delis&latitude=37.786882&longitude=-122.399972"
 
- app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(CORS());
 
 const yelp = require('yelp-fusion');
@@ -21,12 +21,16 @@ yelpClientId: "QHs73MIy7tCDkq7icNwBLQ"
 const client = yelp.client(yelpApiKey);
 
 
-app.get('/yelp/:_id',function(req, res) {
-  const { _id } = req.params;
-  //const search = `https://api.yelp.com/v3/businesses/search?${term}=${type}&latitude=${lat}&longitude=${long}`;
-  // console.log('search:', search);
+app.get('/yelp/:_id', function (req, res) {
+  const {
+    _id
+  } = req.params;
+  const {latitude = 37.786882, longitude = -122.399972} = req.query;
+  console.log(`_id: ${_id}`);
   const searchRequest = {
-    id: _id
+    id: _id,
+    latitude,
+    longitude
   };
   client.search(searchRequest).then(response => {
     res.json(response)
@@ -39,8 +43,10 @@ app.get('/yelp/:_id',function(req, res) {
   });
 });
 
-app.get('/yelp',function(req, res) {
-  const {term = 'delis', latitude=37.786882, longitude=-122.399972, radius=5000  } = req.query;
+app.get('/yelp', function (req, res) {
+  const {
+    term = 'delis', latitude = 37.786882, longitude = -122.399972, radius = 5000
+  } = req.query;
   //const search = `https://api.yelp.com/v3/businesses/search?${term}=${type}&latitude=${lat}&longitude=${long}`;
   // console.log('search:', search);
   const searchRequest = {

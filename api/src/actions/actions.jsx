@@ -15,10 +15,8 @@ export const getYelps = (text, geo, radius) => {
     payload: promise
   };
 };
-export const getYelp =  ( _id, geo) => {
-  console.log('geo:',geo);
-  const query = `?latitude=${geo.latitude}&longitude=${geo.longitude}`
-  const promise = axios.get(`https://foodreview-yelp.herokuapp.com/yelp/${_id}${query}`);
+export const getYelp =  ( _id) => {
+  const promise = axios.get(`https://foodreview-yelp.herokuapp.com/yelp/${_id}`);
   return {
     type: GET_YELP,
     payload: promise

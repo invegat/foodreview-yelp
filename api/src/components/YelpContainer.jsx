@@ -4,17 +4,17 @@ import Yelp from './Yelp'
 import {getYelp} from '../actions'
 
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(`ownProps keys: ${Object.keys(ownProps)}`);
-  console.log(`state keys: ${Object.keys(state)}`);
-  return {
-    data: state.yelps
-  }
-}
+// const mapStateToProps = (state, ownProps) => {
+//   console.log(`ownProps keys: ${Object.keys(ownProps)}`);
+//   console.log(`state keys: ${Object.keys(state)}`);
+//   return {
+//     data: state.yelps
+//   }
+// }
 
   const mapDispatchToProps = (dispatch,ownProps) => {
     return {
-      fetchYelp: (ownProps) => dispatch(getYelp(ownProps._id, ownProps.geo))
+      fetchYelp: (ownProps) => dispatch(getYelp(ownProps._id))
     }
   }
-  export default connect(mapStateToProps, mapDispatchToProps)(Yelp);
+  export default connect(null, mapDispatchToProps)(Yelp);

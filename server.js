@@ -25,14 +25,17 @@ app.get('/yelp/:_id', function (req, res) {
   const {
     _id
   } = req.params;
-  const {latitude = 37.786882, longitude = -122.399972} = req.query;
   console.log(`_id: ${_id}`);
-  const searchRequest = {
-    id: _id,
-    latitude,
-    longitude
-  };
-  client.search(searchRequest).then(response => {
+
+  // const searchRequest = {
+  //   id: _id,
+  //   url: `https://api.yelp.com/v3/businesses/${_id}`
+  // };
+  // console.log(`before assignment client.url: ${client.url}`);
+  // client.url = `https://api.yelp.com/v3/businesses/${_id}`;
+  // console.log(`after assignmentclient.url: ${client.url}`);
+  client.business(_id)
+  .then(response => {
     res.json(response)
     // res.json(response.jsonBody.businesses.filter(y => y.id == _id));
     // const firstResult = response.jsonBody.businesses[0];

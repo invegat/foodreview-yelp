@@ -5,16 +5,26 @@ import '../index.css';
 export default class Yelp extends Component {
   constructor(props) {
     super(props);
-    console.log('Yelp props.match.url', props.match.url);
-    console.log('Yelp props.data', props.data);
+    // console.log('Yelp props.match.url', props.match.url);
+    // console.log('Yelp props.data', props.data);
+    // this.state = {
+    //   data: props.data.filter(y => y.id === props.match.url.substring(7))[0]
+    // };
     this.state = {
-      data: props.data.filter(y => y.id === props.match.url.substring(7))[0]
-    };
+      data: {}
+    }
   }
 
   componentDidMount() {
-    console.log(`data keys: ${Object.keys(this.state.data)}`);
-
+   // console.log(`componentDidMount id: ${this.props.match.url.substring(7)}`)
+   // console.log(`data keys: ${Object.keys(this.state.data)}`);
+   this.props.fetchYelp(this.props.match.url.substring(7))
+   .then(data => {
+//    console.log(`data keys: ${Object.keys(data.payload.data.jsonBody.businesses[0])}`);
+     this.setState({
+       data: data.payload.data.jsonBody.businesses[0]
+     });
+   })
     /*
     Yelp.jsx:17 data keys: id,name,image_url,is_closed,url,review_count,categories,rating,coordinates,transactions,price,location,phone,display_phone,distance
     console.log('Yelp componentDidMount:', this.props.match.url);
@@ -54,6 +64,7 @@ export default class Yelp extends Component {
   }
   render() {
     // keys: id,name,image_url,is_closed,url,review_count,categories,rating,coordinates,transactions,price,location,phone,display_phone,distance
+    //       id,name,image_url,is_closed,url,review_count,categories,rating,coordinates,transactions,price,location,phone,display_phone,distance
     return (
       <form
         onSubmit={e => {
@@ -66,6 +77,7 @@ export default class Yelp extends Component {
           */
         }}
       >
+  
         <img
           id='detailUrl'
           src={this.state.data.image_url}
@@ -78,29 +90,32 @@ export default class Yelp extends Component {
           {this.state.data.isClosed ? 'Closed' : 'Open'}
         </div>
         <div>
-          <Link to={this.state.data.url} target="_blank">URL</Link>  
+          { this.state.data.url ? <Link to={this.state.data.url} target="_blank">Yelp Business URL</Link> : null} 
         </div>
         <div>
           reviews: {this.state.review_count || 0} rating: {this.state.data.rating} distance(miles) {(this.state.data.distance / 1609.34).toFixed(2)} 
         </div>
+        
         <div className="table">
           <ul id="categories">
-            {this.state.data.categories.map(c => {
+            {this.state.data.categories ? this.state.data.categories.map(c => {
               return <li key={c.alias}>{c.title}</li>;
-            })}
+            }) : null}
           </ul>
         </div>
+        
         <div>Price {this.state.data.price}   Phone {this.state.data.display_phone}  </div>
         <div></div>
         <div></div>
         <div> 
           <ul id='address'> Address
-            {this.state.data.location.display_address.map(a => {
+            {this.state.data.location ? this.state.data.location.display_address.map(a => {
               return <li key={a}>{a}</li>
-            })}
+            }) : null}
           </ul>
         </div>
         <div>Yelp Id {this.state.data.id}</div>
+          
         <button>
           <Link to="/">Back to List</Link>
         </button>

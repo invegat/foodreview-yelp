@@ -17,10 +17,10 @@ class Yelps extends Component {
   }
 
   componentDidMount() {
-    console.log('componentDidMount');
+//    console.log('componentDidMount');
     navigator.geolocation.getCurrentPosition(
       position => {
-        console.log('navigator succeeded');
+     //   console.log('navigator succeeded');
         this.setState({
           geo: {
             latitude: position.coords.latitude,
@@ -79,7 +79,7 @@ class Yelps extends Component {
       <div>
         <form
           onSubmit={e => {
-            console.log('form onSubmit text:', this.state.text);
+           // console.log('form onSubmit text:', this.state.text);
             e.preventDefault();
             this.props
               .fetchYelps({
@@ -103,6 +103,7 @@ class Yelps extends Component {
           <label>
             {'Radius in miles'}
             <input
+              width="30"
               type="text"
               pattern="[0-9]*"
               value={this.state.radius}
@@ -117,7 +118,7 @@ class Yelps extends Component {
             {`
             search text (food - example: 'tacos') and/or (business - example:
             'Taco Bell') and/or (type - example: 'restaurant') `}
-            <input type="text" value={this.state.text} onChange={event => {
+            <input type="text" value={this.state.text} width="80" onChange={event => {
               this.setState({
                 text: event.target.value
               })

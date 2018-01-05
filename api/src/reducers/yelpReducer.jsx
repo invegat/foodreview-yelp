@@ -1,10 +1,10 @@
 import * as Actions from '../actions'
 
-export default (state = [], action) => {
-    if (action.payload && action.type === Actions.GET_YELP) console.log(`yelp reducer action payload.data: ${action.payload.data.jsonBody.businesses} action.type: ${action.type}`);
+export default (state = {}, action) => {
+ //   if (action.payload && action.type === Actions.GET_YELP) console.log(`yelp reducer action payload.data: ${action.payload.data} action.type: ${action.type}`);
     switch(action.type) {
         case Actions.GET_YELP:
-            return action.payload.data.jsonBody.businesses      
+            return action.payload.data      
         default:
             return state
     }

@@ -7,7 +7,7 @@ const mapStateToProps = (state) => {
       yelps: state.yelps
     }
   }
-  const mapDispatchToProps = (dispatch, ownProps) => {
+  const mapDispatchToProps = (dispatch) => {
     return {
       fetchYelps: (ownProps) => dispatch(getYelps(ownProps.text, ownProps.geo, ownProps.radius)), 
     }

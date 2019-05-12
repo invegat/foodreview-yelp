@@ -50,3 +50,6 @@ ul#address {
 .StarList span:not(:last-child):after {
   content: ', ';
 }
+#backToList {
+  margin-top: 40px;
+}

@@ -5,6 +5,8 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import '../index.css';
 import { Link } from 'react-router-dom';
+// import geodist from 'geodist';
+
 class Yelps extends Component {
   constructor(props) {
     super(props);
@@ -28,7 +30,11 @@ class Yelps extends Component {
           },
           radius: 5,
           text: 'tacos'
-        });
+        }, () => {
+            // for (const r of this.props.yelps) {
+            //   r.distance = (r.distance / 1609.34).toFixed(2)
+            // }
+        } );
       },
       error => {
         console.log('navigator failed error:', error);
@@ -45,6 +51,13 @@ class Yelps extends Component {
       {
         Header: 'Name',
         accessor: 'name'
+      },
+      {
+        id: 'distance',
+        Header: 'Distance',
+        accessor: d => {
+          return (d.distance / 1609.34).toFixed(2)
+        }
       },
       {
         id: 'image',
@@ -68,7 +81,7 @@ class Yelps extends Component {
         id: 'detail',
         Header: 'Show Detail',
         accessor: d => (
-          <Link to={`/yelps/${d.id}`} data={d}  >
+          <Link to={{pathname: `/yelps/${d.id}`, state: {distance: d.distance}} }  >
             {d.name}
           </Link>
         )
@@ -131,6 +144,8 @@ class Yelps extends Component {
           defaultPageSize={15}
           data={this.props.yelps}
           columns={columns}
+          defaultSorted={[{id:'distance', desc:false}]}
+                       
         />
       </div>
     );

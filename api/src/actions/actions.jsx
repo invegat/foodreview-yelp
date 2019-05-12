@@ -17,6 +17,7 @@ export const getYelps = (text, geo, radius) => {
   };
 };
 export const getYelp =  ( _id) => {
+  console.log(`getYelp id ${_id}`)
   const promise = axios.get(`${server}/yelp/${_id}`);
   return {
     type: GET_YELP,

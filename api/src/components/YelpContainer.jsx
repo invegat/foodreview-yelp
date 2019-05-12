@@ -1,7 +1,7 @@
 //import React from 'react';
 import { connect } from 'react-redux';
 import Yelp from './Yelp'
-import {getYelp} from '../actions'
+import { getYelp } from '../actions'
 
 
 // const mapStateToProps = (state, ownProps) => {
@@ -12,9 +12,18 @@ import {getYelp} from '../actions'
 //   }
 // }
 
-  const mapDispatchToProps = (dispatch,ownProps) => {
-    return {
-      fetchYelp: (ownProps) => dispatch(getYelp(ownProps._id))
-    }
+// const mapStateToProps = (state) => {
+
+//   return {
+//     lng: state.longitude,
+//     lat: state.latituder
+//   }
+// }
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchYelp: (_id) => dispatch(getYelp(_id))
   }
-  export default connect(null, mapDispatchToProps)(Yelp);
+}
+export default connect(null, mapDispatchToProps)(Yelp);

@@ -15,12 +15,12 @@ export default class Yelp extends Component {
     // };
     this.state = {
       data: {},
-      geo: null
+      distance: 0
     }
   }
 
   componentDidMount() {
-    console.log(`current route is ${this.props.location.pathname}`)
+    // console.log(`current route is ${this.props.location.pathname}`)
     // console.log(`componentDidMount id: ${this.props.match.url.substring(7)}`)
     // console.log(`data keys: ${Object.keys(this.state.data)}`);
     this.props.fetchYelp(this.props.location.pathname.substring(7))
@@ -28,9 +28,10 @@ export default class Yelp extends Component {
         //    console.log(`data keys: ${Object.keys(data.payload.data.jsonBody.businesses[0])}`);
 
         this.setState({
-          data: data.payload.data.jsonBody
+          data: data.payload.data.jsonBody,
+          distance: this.props.location.state.distance
         }, () => {
-          console.log('yelp data distance', this.props.location.state.distance)
+          // console.log('yelp data distance', this.props.location.state.distance)
         })
       })
 
@@ -65,11 +66,11 @@ export default class Yelp extends Component {
             {this.state.data.isClosed ? 'Closed' : 'Open'}
           </div>
           <div>
-            {this.state.data.url ? <a href={this.state.data.url} target="_blank" rel="noopener noreferrer" >Yelp Business URL</a> : null}
+            <a href={this.state.data.url} target="_blank" rel="noopener noreferrer" >Yelp Business URL</a>
           </div>
           <div>
             reviews: {this.state.data.review_count || 0} rating: {this.state.data.rating}&nbsp;
-          distance(miles): {(this.props.location.state.distance / 1609.34).toFixed(2)}
+          distance(miles): {(this.state.distance / 1609.34).toFixed(2)}
           </div>
 
           <div className="table">
@@ -92,12 +93,15 @@ export default class Yelp extends Component {
           </div>
           <div>Yelp Id {this.state.data.id}</div>
 
+
           <button id='backToList'>
             <Link to="/">Back to List</Link>
           </button>
         </form>
-        :
-        <div></div>
+          :
+          <button id='backToList'>
+            <Link to="/">Back to List</Link>
+          </button>
     );
   }
 }
